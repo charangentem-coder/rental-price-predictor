@@ -1,6 +1,5 @@
 """
-Rental Price Prediction - College Presentation Version
-Clean & Professional UI
+Rental Price Prediction - Stylish Presentation Version
 """
 
 import streamlit as st
@@ -14,6 +13,50 @@ st.set_page_config(
     page_icon="🏠",
     layout="centered"
 )
+
+# ---------------- CUSTOM STYLING ---------------- #
+st.markdown("""
+<style>
+body {
+    background: linear-gradient(to right, #f5f7fa, #c3cfe2);
+}
+
+.main-title {
+    text-align: center;
+    font-size: 40px;
+    font-weight: bold;
+    color: #1f3c88;
+}
+
+.sub-title {
+    text-align: center;
+    color: #555;
+    margin-bottom: 30px;
+}
+
+.prediction-card {
+    text-align: center;
+    padding: 50px;
+    border-radius: 20px;
+    background: white;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+    margin-top: 20px;
+}
+
+.prediction-value {
+    font-size: 75px;
+    color: #16a085;
+    margin: 10px 0;
+    font-weight: bold;
+}
+
+.footer {
+    text-align: center;
+    color: gray;
+    margin-top: 40px;
+}
+</style>
+""", unsafe_allow_html=True)
 
 # ---------------- LOAD MODEL ---------------- #
 @st.cache_resource
@@ -45,9 +88,8 @@ def load_dataset():
 # ---------------- MAIN APP ---------------- #
 def main():
 
-    st.title("🏠 Rental Price Prediction System")
-    st.markdown("### AI-Based Monthly Rent Estimator")
-    st.markdown("---")
+    st.markdown("<div class='main-title'>🏠 Rental Price Prediction</div>", unsafe_allow_html=True)
+    st.markdown("<div class='sub-title'>AI Powered Monthly Rent Estimator</div>", unsafe_allow_html=True)
 
     model = load_model()
     df = load_dataset()
@@ -55,15 +97,14 @@ def main():
     if model is None or df is None:
         st.stop()
 
-    st.sidebar.header("📋 Enter Property Details")
+    # ---------------- SIDEBAR ---------------- #
+    st.sidebar.header("📋 Property Details")
 
-    # Dynamic City Dropdown
     city = st.sidebar.selectbox(
         "City",
         sorted(df["City"].unique())
     )
 
-    # Filter locations based on selected city
     filtered_locations = df[df["City"] == city]["Location"].unique()
 
     location = st.sidebar.selectbox(
@@ -87,8 +128,7 @@ def main():
 
     predict_button = st.sidebar.button("🔮 Predict Rental Price")
 
-    st.markdown("## 📊 Prediction Result")
-
+    # ---------------- PREDICTION ---------------- #
     if predict_button:
 
         input_data = pd.DataFrame({
@@ -107,19 +147,13 @@ def main():
         try:
             prediction = model.predict(input_data)[0]
 
-            # BIG Professional Prediction Box
-            st.markdown("""
-                <div style='text-align:center; padding:40px;
-                            background-color:#f8f9fa;
-                            border-radius:20px;
-                            box-shadow:0 6px 18px rgba(0,0,0,0.15);'>
-                    <h3 style='color:#555;'>Estimated Monthly Rent</h3>
-                    <h1 style='font-size:70px; color:#2E8B57; margin:15px 0;'>
-                        ₹{:,.0f}
-                    </h1>
-                    <p style='color:gray;'>Predicted using Machine Learning Model</p>
-                </div>
-            """.format(prediction), unsafe_allow_html=True)
+            st.markdown(f"""
+            <div class='prediction-card'>
+                <h3>Estimated Monthly Rent</h3>
+                <div class='prediction-value'>₹{prediction:,.0f}</div>
+                <p>Predicted using Machine Learning Model</p>
+            </div>
+            """, unsafe_allow_html=True)
 
             # Input Summary
             st.markdown("### 📝 Selected Property Details")
@@ -142,11 +176,7 @@ def main():
         except Exception as e:
             st.error(f"Prediction error: {e}")
 
-    else:
-        st.info("👈 Enter details from the sidebar and click Predict.")
-
-    st.markdown("---")
-    st.caption("Developed using Streamlit & Machine Learning")
+    st.markdown("<div class='footer'>Developed using Streamlit & Machine Learning</div>", unsafe_allow_html=True)
 
 
 if __name__ == "__main__":
