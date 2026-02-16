@@ -204,11 +204,13 @@ This project is open source and available for educational purposes.
 
 ## 👤 Author
 
+Built by Gentem Charan
 Built as a production-ready ML application for rental price prediction.
 
 ---
 
 **Happy Predicting! 🎉**
+
 
 
 
