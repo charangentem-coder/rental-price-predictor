@@ -1,9 +1,11 @@
 # 🏠 Rental Price Prediction Web Application
 
 A production-ready machine learning web application for predicting rental prices of properties using Random Forest Regression.
-🔗 Try it live on Streamlit:[Rental Price Predictor](https://rental-price-predictor-l8dqncgsxqju7fvjksypxc.streamlit.app/#selected-property-details
+
+
+✨🔗 Try it live on Streamlit:[Rental Price Predictor](https://rental-price-predictor-l8dqncgsxqju7fvjksypxc.streamlit.app/#selected-property-details
 )
-✨ Try it now: Rental Price Predictor
+
 ## 📋 Features
 
 - **Interactive Web Interface**: Clean and professional Streamlit-based UI
@@ -207,5 +209,6 @@ Built as a production-ready ML application for rental price prediction.
 ---
 
 **Happy Predicting! 🎉**
+
 
 
