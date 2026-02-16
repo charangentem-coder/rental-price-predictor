@@ -1,5 +1,5 @@
 """
-Rental Price Prediction - Stylish Presentation Version
+Rental Price Prediction - Premium Styled Version
 """
 
 import streamlit as st
@@ -14,47 +14,83 @@ st.set_page_config(
     layout="centered"
 )
 
-# ---------------- CUSTOM STYLING ---------------- #
+# ---------------- CUSTOM CSS ---------------- #
 st.markdown("""
 <style>
-body {
-    background: linear-gradient(to right, #f5f7fa, #c3cfe2);
+
+/* Main background */
+[data-testid="stAppViewContainer"] {
+    background: linear-gradient(to right, #1e3c72, #2a5298);
 }
 
-.main-title {
-    text-align: center;
-    font-size: 40px;
-    font-weight: bold;
-    color: #1f3c88;
-}
-
-.sub-title {
-    text-align: center;
-    color: #555;
-    margin-bottom: 30px;
-}
-
-.prediction-card {
-    text-align: center;
-    padding: 50px;
+/* Main card container */
+.main-card {
+    background-color: white;
+    padding: 40px;
     border-radius: 20px;
-    background: white;
-    box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+    box-shadow: 0 8px 25px rgba(0,0,0,0.3);
     margin-top: 20px;
 }
 
+/* Title */
+.title-text {
+    text-align: center;
+    font-size: 42px;
+    font-weight: bold;
+    color: white;
+}
+
+/* Subtitle */
+.subtitle-text {
+    text-align: center;
+    color: #f0f0f0;
+    margin-bottom: 30px;
+}
+
+/* Prediction card */
+.prediction-box {
+    text-align: center;
+    padding: 50px;
+    border-radius: 20px;
+    background: #f8f9fa;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+}
+
+/* Prediction value */
 .prediction-value {
     font-size: 75px;
-    color: #16a085;
-    margin: 10px 0;
     font-weight: bold;
+    color: #27ae60;
+    margin: 10px 0;
+}
+
+/* Sidebar background */
+[data-testid="stSidebar"] {
+    background-color: #f4f6f9;
+}
+
+/* Custom Button */
+.stButton>button {
+    background-color: #ff4b4b;
+    color: white;
+    font-size: 18px;
+    font-weight: bold;
+    border-radius: 10px;
+    padding: 10px 20px;
+    border: none;
+}
+
+.stButton>button:hover {
+    background-color: #e63946;
+    color: white;
 }
 
 .footer {
     text-align: center;
-    color: gray;
+    color: white;
     margin-top: 40px;
 }
+
 </style>
 """, unsafe_allow_html=True)
 
@@ -88,8 +124,8 @@ def load_dataset():
 # ---------------- MAIN APP ---------------- #
 def main():
 
-    st.markdown("<div class='main-title'>🏠 Rental Price Prediction</div>", unsafe_allow_html=True)
-    st.markdown("<div class='sub-title'>AI Powered Monthly Rent Estimator</div>", unsafe_allow_html=True)
+    st.markdown("<div class='title-text'>🏠 Rental Price Prediction</div>", unsafe_allow_html=True)
+    st.markdown("<div class='subtitle-text'>AI Powered Monthly Rent Estimator</div>", unsafe_allow_html=True)
 
     model = load_model()
     df = load_dataset()
@@ -148,14 +184,15 @@ def main():
             prediction = model.predict(input_data)[0]
 
             st.markdown(f"""
-            <div class='prediction-card'>
-                <h3>Estimated Monthly Rent</h3>
-                <div class='prediction-value'>₹{prediction:,.0f}</div>
-                <p>Predicted using Machine Learning Model</p>
+            <div class='main-card'>
+                <div class='prediction-box'>
+                    <h3>Estimated Monthly Rent</h3>
+                    <div class='prediction-value'>₹{prediction:,.0f}</div>
+                    <p>Predicted using Machine Learning Model</p>
+                </div>
             </div>
             """, unsafe_allow_html=True)
 
-            # Input Summary
             st.markdown("### 📝 Selected Property Details")
 
             summary_df = pd.DataFrame({
